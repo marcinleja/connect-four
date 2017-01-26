@@ -1,5 +1,8 @@
 # Connect four
 
+Application allows its users (after registration and logging in) to play connect four in a hot seat mode.
+
+
 How to run:
 
 1. Install mysql
