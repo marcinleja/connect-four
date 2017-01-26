@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="marcin (generated)" id="1485464380860-1">
+		<createTable tableName="games">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="last_modified" type="datetime(6)" />
+			<column name="game_result" type="VARCHAR(255)" />
+			<column name="player1name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="player2name" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="winner_name" type="VARCHAR(255)" />
+			<column name="game_state_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="owner_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-2">
+		<createTable tableName="games_states">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="last_modified" type="datetime(6)" />
+			<column name="board" type="LONGBLOB" />
+			<column name="current_turn" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-3">
+		<createTable tableName="user_accounts">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="last_modified" type="datetime(6)" />
+			<column name="login" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="password" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-4">
+		<addUniqueConstraint columnNames="login"
+			constraintName="UK_ks392pn55fmyymhj0labgc8rb" tableName="user_accounts" />
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-5">
+		<addUniqueConstraint columnNames="game_state_id"
+			constraintName="UK_o4xvgvvaxfqj7ivwl798y2dc7" tableName="games" />
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-6">
+		<createIndex indexName="FK5im8m44kjjuwdobfvi6cnfejd"
+			tableName="games">
+			<column name="owner_id" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-7">
+		<addForeignKeyConstraint baseColumnNames="owner_id"
+			baseTableName="games" constraintName="FK5im8m44kjjuwdobfvi6cnfejd"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_accounts" />
+	</changeSet>
+	<changeSet author="marcin (generated)" id="1485464380860-8">
+		<addForeignKeyConstraint baseColumnNames="game_state_id"
+			baseTableName="games" constraintName="FKahptr0pfvrq7yvxyrv4cbmdhe"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="games_states" />
+	</changeSet>
+</databaseChangeLog>
